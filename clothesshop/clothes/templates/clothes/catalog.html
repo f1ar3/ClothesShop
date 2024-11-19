@@ -1,0 +1,164 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load clothes_tags%}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/catalog.css' %}">{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content%}
+
+<section class="catalog-header">
+    <h2>Clothes catalog</h2>
+    <p>Modern beauty</p>
+</section>
+
+<section class="product-filtering">
+    <div class="dropdown mb-2">
+        <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">Category
+        </button>
+        <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
+            {% tag_categories as categories %}
+            {% for category in categories %}
+            <li><a class="dropdown-item text-white" href="{% url 'catalog:catalog_by_category' category.slug %}">{{category.name}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="dropdown mb-2">
+        <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">Filters
+        </button>
+
+        <form action="{% if request.GET.q %}{% url 'catalog:search' %}{% else %}{% url 'catalog:catalog_by_category' slug_url  %}{% endif %}"
+              method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
+            <div class="form-check text-white mx-3">
+                <input class="form-check-input" type="checkbox" name="on_sale" id="flexCheckDefault" value="on"
+                       {% if request.GET.on_sale == 'on' %}checked{% endif %}>
+                {% if request.GET.q %}
+                <input type="hidden" name="q" value="request.GET.q">
+                {% endif %}
+                <label class="form-check-label" for="flexCheckDefault">
+                    Discounted clothes
+                </label>
+            </div>
+            <p class="text-white mx-3 mt-3">Sort:</p>
+            <div class="form-check text-white mx-3">
+                <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default"
+                       {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}>
+                <label class="form-check-label" for="flexRadioDefault1">
+                    By default
+                </label>
+            </div>
+            <div class="form-check text-white mx-3">
+                <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price"
+                       {% if request.GET.order_by == 'price' %}checked{% endif %}>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    From cheap to expensive
+                </label>
+            </div>
+            <div class="form-check text-white mx-3">
+                <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price"
+                       {% if request.GET.order_by == '-price' %}checked{% endif %}>
+                <label class="form-check-label" for="flexRadioDefault3">
+                    From expensive to cheap
+                </label>
+            </div>
+            <button type="submit" class="btn btn-primary mx-3 mt-3">Apply</button>
+        </form>
+    </div>
+
+    {% if user.is_superuser or user.is_stuff %}
+    <div class="admin-controls">
+        <button class="btn btn-success" id="add-product-btn" data-bs-toggle="modal" data-bs-target="#addProductModal">
+            + Add
+        </button>
+    </div>
+    <!-- Модальное окно для добавления товара -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" enctype="multipart/form-data" id="add-product-form"
+                      action="{% url 'catalog:add_product' %}">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <h6>Edit Product Information</h6>
+                        {{ product_form.as_p }}
+
+                        <h6>Add Additional Images</h6>
+                        {{ images_form.image }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</section>
+
+
+<section class="catalog-products">
+    <div class="catalog-container">
+        {% for product in products %}
+        <div class="catalog-product">
+            {% if product.image %}
+            <a class="product-link" href="{% url 'catalog:product' product.slug %}">
+                <div class="product-image">
+                    <img src="{{ product.image.url }}" alt="">
+                    {% if product.discount %}
+                    <div class="discount-label">Sale {{ product.discount }}%</div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                <div class="product-info">
+                    <span>{{ product.brand }}</span>
+                    <h5>{{ product.name }}</h5>
+                    {% if product.discount %}
+                    <div class="discount">
+                        <h4>{{ product.sell_price }} RUB</h4>
+                        <h4 class="original-price">{{ product.price }} RUB</h4>
+                    </div>
+                    {% else %}
+                    <h4>{{ product.price }} RUB</h4>
+                    {% endif %}
+                </div>
+                <a href="#"><i class="fas fa-shopping-cart"></i></a>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="pagination">
+    <button class="btn1"><i class="fa-solid fa-arrow-left"></i>
+        <a class="previous-next-link" href="{% if products.has_previous %}
+        ?{% change_params page=products.previous_page_number %}{% else %}?{% change_params page=1 %}{% endif %}">Previous</a>
+    </button>
+    <ul>
+        {% for page in products.paginator.page_range %}
+        {% if page >= products.number|add:-3 and page <= products.number|add:+3 %}
+        <a class="page-selector" href="?{% change_params page=page %}">
+            <li class="link {% if products.number == page %} active {% endif %}">{{ page }}</li>
+        </a>
+        {% endif %}
+        {% endfor %}
+    </ul>
+    <button class="btn2"><a class="previous-next-link" href="{% if products.has_next %}
+        ?{% change_params page=products.next_page_number %}
+        {% else %}?{% change_params page=products.number %}{% endif %}">Next</a><i class="fa-solid fa-arrow-right"></i>
+    </button>
+</section>
+
+<script></script>
+{% endblock %}

@@ -1,0 +1,198 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block css %}<link rel="stylesheet" href="{% static 'css/index.css' %}">{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<section class="home">
+    <video class="video-slide active" src="{% static 'img/video7.mp4' %}" autoplay muted loop preload="metadata"></video>
+    <video class="video-slide" src="{% static 'img/video5.mp4' %}" autoplay muted loop preload="metadata"></video>
+    <video class="video-slide" src="{% static 'img/video3.mp4' %}" autoplay muted loop preload="metadata"></video>
+    <video class="video-slide" src="{% static 'img/video6.mp4' %}" autoplay muted loop preload="metadata"></video>
+    <video class="video-slide" src="{% static 'img/video8.mp4' %}" autoplay muted loop preload="metadata"></video>
+    <div class="content active">
+        <h1>Welcome to.<br><span>G-Shop</span></h1>
+        <a href="#">Learn more</a>
+    </div>
+    <div class="content">
+        <h1>Adventures.<br><span>Together</span></h1>
+        <a href="#">Learn more</a>
+    </div>
+    <div class="content">
+        <h1>Welcome to<br><span>G-Shop</span></h1>
+        <a href="#">Learn more</a>
+    </div>
+    <div class="content">
+        <h1>Feel it.<br><span>The life</span></h1>
+        <a href="#">Learn more</a>
+    </div>
+    <div class="content">
+        <h1>Freedom.<br><span>Nature</span></h1>
+        <a href="#">Learn more</a>
+    </div>
+    <div class="media-icons">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+    <div class="slider-navigation">
+        <div class="nav-btn active"></div>
+        <div class="nav-btn"></div>
+        <div class="nav-btn"></div>
+        <div class="nav-btn"></div>
+        <div class="nav-btn"></div>
+    </div>
+</section>
+
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">What inspire us</h2>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
+                <img class="features-img" src="{% static 'img/flowers.jpg' %}"></img>
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Beauty</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32"
+                                 class="rounded-circle border border-white">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"/>
+                            </svg>
+                            <small>Earth</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"/>
+                            </svg>
+                            <small>3d</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
+                <img class="features-img" src="{% static 'img/moon.jpg' %}"></img>
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+                    <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Space</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32"
+                                 class="rounded-circle border border-white">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"/>
+                            </svg>
+                            <small>Pakistan</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"/>
+                            </svg>
+                            <small>4d</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg">
+                <img class="features-img" src="{% static 'img/medusa.jpg' %}"></img>
+                <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                    <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Nature</h3>
+                    <ul class="d-flex list-unstyled mt-auto">
+                        <li class="me-auto">
+                            <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32"
+                                 class="rounded-circle border border-white">
+                        </li>
+                        <li class="d-flex align-items-center me-3">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#geo-fill"/>
+                            </svg>
+                            <small>California</small>
+                        </li>
+                        <li class="d-flex align-items-center">
+                            <svg class="bi me-2" width="1em" height="1em">
+                                <use xlink:href="#calendar3"/>
+                            </svg>
+                            <small>5d</small>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const btns = document.querySelectorAll(".nav-btn");
+    const slides = document.querySelectorAll(".video-slide");
+    const contents = document.querySelectorAll(".content");
+
+    let currentSlide = 0;
+    let slideInterval;
+
+    var sliderNav = function (manual) {
+        clearInterval(slideInterval);
+        btns.forEach((btn) => {
+            btn.classList.remove("active");
+        });
+
+        slides.forEach((slide) => {
+            slide.classList.remove("active");
+            slide.pause();
+        });
+
+        contents.forEach((content) => {
+            content.classList.remove("active");
+        });
+
+        btns[manual].classList.add("active");
+        slides[manual].classList.add("active");
+        contents[manual].classList.add("active");
+
+        slides[manual].currentTime = 0;
+        slides[manual].play();
+
+        autoSlide(manual);
+    };
+
+    var autoSlide = function (index) {
+        clearTimeout(slideInterval);
+
+        const startTimer = () => {
+            const videoDuration = slides[index].duration * 1000;
+            slideInterval = setTimeout(() => {
+                currentSlide = (index + 1) % slides.length;
+                sliderNav(currentSlide);
+            }, videoDuration);
+        };
+
+        if (slides[index].readyState >= 1) {
+            startTimer();
+        } else {
+            slides[index].addEventListener('loadedmetadata', startTimer);
+        }
+    };
+
+
+    btns.forEach((btn, i) => {
+        btn.addEventListener("click", () => {
+            currentSlide = i;
+            sliderNav(i);
+        });
+    });
+
+    sliderNav(currentSlide);
+
+</script>
+{% endblock %}

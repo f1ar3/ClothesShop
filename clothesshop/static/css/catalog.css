@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+.catalog-header {
+    background-image: url("../img/flowers.jpg");
+    width: 100%;
+    height: 30vh;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    padding: 14px;
+}
+
+.catalog-header h2,
+.catalog-header p{
+    color: #fff;
+}
+
+.btn-secondary {
+    width: 120px;
+}
+
+.admin-controls {
+    margin-left: 925px;
+}
+
+.modal-dialog {
+    max-width: 600px;
+    margin: 30px auto;
+}
+
+.modal-content {
+    border-radius: 8px;
+}
+
+.product-filtering {
+    display: flex;
+    margin-left: 65px;
+    margin-top: 10px;
+}
+
+.product-filtering .dropdown {
+    width: 250px;
+}
+
+.catalog-products {
+    margin: 10px 50px;
+    text-align: center;
+}
+
+.catalog-products .catalog-container {
+    display: flex;
+    padding-top: 20px;
+    flex-wrap: wrap;
+}
+
+.catalog-products .catalog-product {
+    width: 23%;
+    min-width: 250px;
+    padding: 10px 12px;
+    border: 1px solid #cce7d0;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+    margin: 15px 15px;
+    transition: 0.2s ease;
+    position: relative;
+}
+
+.catalog-products .catalog-product .product-link {
+    text-decoration: none;
+}
+
+.catalog-products .catalog-product .product-image {
+    position: relative;
+}
+
+.catalog-products .catalog-product .discount-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #cccccc;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.catalog-products .catalog-product:hover {
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
+}
+
+.catalog-products .catalog-product img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.catalog-products .catalog-product .product-info {
+    text-align: start;
+    padding: 10px 0;
+}
+
+.catalog-products .catalog-product .product-info span {
+    color: #606063;
+    font-size: 12px;
+}
+
+.catalog-products .catalog-product .product-info h5 {
+    padding-top: 7px;
+    color: #1a1a1a;
+    font-size: 14px;
+}
+
+.catalog-products .catalog-product .product-info .discount {
+    display: flex;
+}
+
+.catalog-products .catalog-product .product-info h4.original-price {
+    text-decoration: line-through;
+    color: #888888;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.catalog-products .catalog-product .product-info h4 {
+    font-size: 15px;
+    padding-top: 7px;
+    font-weight: 700;
+    color: #111111;
+}
+
+.catalog-products .catalog-product a .fa-shopping-cart {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50px;
+    background-color: #ffffff;
+    color: #088178;
+    border: 1px solid #cce7d0;
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+}
+
+.pagination {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background: #ffffff;
+    color: #383838;
+    padding: 10px 40px;
+    border-radius: 6px;
+}
+
+.pagination .btn1 {
+    margin-right: -30px;
+}
+
+.pagination .btn1, .pagination .btn2 {
+    display: inline-flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: #383838;
+    background: transparent;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.pagination ul {
+    margin: 20px 0;
+}
+
+.pagination ul li {
+   display: inline-block;
+    margin: 0 10px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 45px;
+    cursor: pointer;
+    background-position: 0 -40px;
+    transition: background-position 0.5s;
+}
+
+.pagination ul li.active {
+    color: #ffffff;
+    background-image: linear-gradient(#ff4568, #ff4568);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+
+}
+
+.pagination .fa-arrow-right {
+    margin-left: 5px;
+}
+
+.pagination .fa-arrow-left {
+    margin-right: 5px;
+}
+
+.page-selector, .previous-next-link {
+    text-decoration: none;
+    color: black;
+}
