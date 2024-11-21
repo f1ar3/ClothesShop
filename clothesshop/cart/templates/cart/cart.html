@@ -44,7 +44,7 @@
                         </div>
                         <div class="cart-col col" style="padding-left: 50px">{% if cart.quantity == 1 %}{{ cart.product.sell_price }}
                             {% else %}{{ cart.products_price }}{% endif %}RUB</div>
-                        <div class="remove-item col"><a href=""><i class="fa-regular fa-circle-xmark"></i></a></div>
+                        <div class="remove-item col"><a href="{% url 'cart:cart_remove' cart.id %}"><i class="fa-regular fa-circle-xmark"></i></a></div>
                     </div>
                 </div>
                 {% endfor %}
