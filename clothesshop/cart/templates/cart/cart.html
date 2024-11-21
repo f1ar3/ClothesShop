@@ -1,0 +1,83 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load carts_tags %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">{% endblock %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="cart-container">
+    <div class="cart-card">
+        <div class="cart-row row">
+            <div class="cart-col-md-8 cart-items col-md-8">
+                <div class="cart-title">
+                    <div class="cart-row row">
+                        <div class="cart-col col"><h4><b>Shopping Cart</b></h4></div>
+                    </div>
+                </div>
+                <div class="header-row row">
+                    <div class="header-image col">Image</div>
+                    <div class="header-product col">Product</div>
+                    <div class="header-quantity col">Quantity</div>
+                    <div class="header-size col">Size</div>
+                    <div class="header-price col">Price</div>
+                    <div class="header-remove col"></div>
+                </div>
+                {% user_carts request as carts %}
+                {% for cart in carts %}
+                <div class="cart-row row border-top border-bottom">
+                    <div class="cart-row row main align-items-center">
+                        <div class="cart-col-2 col-2"><img class="cart-img-fluid" src="{{ cart.product.image.url }}"></div>
+                        <div class="cart-col col">
+                            <div class="cart-row row text-muted" style="padding-left: 25px">{{ cart.product.brand }}</div>
+                            <div class="cart-row row" style="padding-left: 25px">{{ cart.product.name }}</div>
+                        </div>
+                        <div class="cart-col col" >
+                            <input type="number" value="{{ cart.quantity }}" min="1" max="999">
+                        </div>
+                        <div class="item-size col">
+                            <select class="size-selector">
+                                <option value="text-muted">S</option>
+                            </select>
+                        </div>
+                        <div class="cart-col col" style="padding-left: 50px">{% if cart.quantity == 1 %}{{ cart.product.sell_price }}
+                            {% else %}{{ cart.products_price }}{% endif %}RUB</div>
+                        <div class="remove-item col"><a href=""><i class="fa-regular fa-circle-xmark"></i></a></div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="cart-back-to-shop"><a href="{% url 'catalog:catalog' %}">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+            </div>
+            <div class="cart-col-md-4 cart-summary col-md-4">
+                <div><h5><b>Summary</b></h5></div>
+                <hr>
+                <div class="cart-row row">
+                    <div class="cart-col col" style="padding-left:0;">Products</div>
+                    <div class="cart-col text-right col">{{ carts.total_price }} RUB</div>
+                </div>
+                <div class="cart-row row">
+                    <div class="cart-col col" style="padding-left:0;">Delivery</div>
+                    <div class="cart-col text-right col">500 RUB</div>
+                </div>
+                <form class="cart-form">
+                    <p>DELIVERY</p>
+                    <select class="delivery-selector">
+                        <option class="text-muted">Standard Delivery - FREE</option>
+                        <option class="text-muted">Express-Delivery - &euro;5.00</option>
+                    </select>
+                    <p>GIVE CODE</p>
+                    <input class="promo-input" id="cart-code" placeholder="Enter your code">
+                </form>
+                <div class="cart-row row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                    <div class="cart-col col">TOTAL PRICE</div>
+                    <div class="cart-col text-right col">13700 RUB</div>
+                </div>
+                <button class="cart-btn">CHECKOUT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

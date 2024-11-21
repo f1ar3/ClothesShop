@@ -15,7 +15,7 @@
         </div>
 
         <div class="small-product-images">
-            {% for image in product.images.all%}
+            {% for image in product.images.all %}
             <div class="small-img-row">
                 <img class="small-img {% if forloop.first %}active{% endif %}" src="{{ image.image.url }}"
                      data-index="0" width="100%" alt="">
@@ -43,7 +43,7 @@
 
 
         <input type="number" value="1" min="1">
-        <button class="cart-btn">Add To Cart</button>
+        <a href="{% url 'cart:cart_add' product.slug %}"><button class="cart-btn">Add To Cart</button></a>
         <button class="favorite-btn">Favorites<i class="fa-regular fa-heart"></i></button>
         {% if user.is_superuser %}
         <button class="btn-admin btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editProductModal-{{ product.slug }}">
@@ -63,7 +63,7 @@
 
     <div class="modal fade" id="editProductModal-{{ product.slug }}" tabindex="-1" aria-labelledby="editProductModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editProductModalLabel">Edit {{ product.name }}</h5>

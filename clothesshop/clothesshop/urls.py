@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('main.urls', namespace='main')),
     path('catalog/', include('clothes.urls', namespace='catalog')),
     path('user/', include('users.urls', namespace='user')),
+    path('cart/', include('cart.urls', namespace='cart')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

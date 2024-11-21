@@ -1,0 +1,146 @@
+.cart-container {
+    background: #ddd;
+    min-height: 80vh;
+    display: flex;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.cart-card {
+    margin: auto;
+    max-width: 1500px;
+    width: 100%;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent;
+}
+
+.header-row {
+    margin-left: 25px;
+    margin-bottom: 5px;
+}
+
+.header-row .header-size {
+    margin-left: 20px;
+}
+
+.cart-items {
+    background-color: #fff;
+    padding: 4vh 5vh;
+    border-bottom-left-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+
+.cart-summary {
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh;
+    color: rgb(65, 65, 65);
+}
+
+.cart-row {
+    display: flex;
+    margin: 0;
+    font-size: 15px;
+}
+
+.cart-col {
+    flex: 2;
+    padding: 0 1vh;
+}
+
+.cart-col input {
+    padding-left: 5px;
+    margin-left: 15px;
+}
+
+.cart-col-2 {
+    flex: 0 0 15%;
+}
+
+.cart-title {
+    margin-bottom: 5vh;
+}
+
+.cart-img-fluid {
+    width: 100px;
+}
+
+.cart-back-to-shop {
+    margin-top: 4.5rem;
+}
+
+.cart-back-to-shop a {
+    text-decoration: none;
+    color: #1a1a1a;
+    margin-right: 5px;
+}
+
+.main {
+    padding: 2vh 0;
+    width: 100%;
+}
+
+.size-selector {
+    width: 40px;
+    border: none;
+}
+
+.remove-item {
+    margin-left: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.fa-circle-xmark {
+    color: #1a1a1a;
+}
+
+.cart-form {
+    margin-top: 15px;
+}
+
+.cart-btn {
+    background-color: #000;
+    border-color: #000;
+    color: white;
+    width: 100%;
+    font-size: 0.7rem;
+    margin-top: 4vh;
+    padding: 1vh;
+    border-radius: 0;
+    cursor: pointer;
+}
+
+.cart-btn:hover {
+    background-color: #333;
+    color: white;
+}
+
+.delivery-selector {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1.5vh 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+
+.promo-input {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}
+
+#cart-code {
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 1vh;
+    margin-bottom: 4vh;
+    outline: none;
+    width: 100%;
+    background-color: rgb(247, 247, 247);
+}

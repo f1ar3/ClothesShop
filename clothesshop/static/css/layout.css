@@ -17,6 +17,15 @@
     font-size: 85%;
 }
 
+.shopping-cart {
+    font-size: 1.8rem;
+    margin-right: 15px;
+}
+
+.shopping-cart .bi-cart {
+    color: black;
+}
+
 .dropdown-toggle:not(:focus) {
     outline: 0;
 }

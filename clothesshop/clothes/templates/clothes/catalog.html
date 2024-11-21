@@ -77,7 +77,6 @@
             + Add
         </button>
     </div>
-    <!-- Модальное окно для добавления товара -->
     <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel"
          aria-hidden="true">
         <div class="modal-dialog">
@@ -90,11 +89,8 @@
                       action="{% url 'catalog:add_product' %}">
                     {% csrf_token %}
                     <div class="modal-body">
-                        <h6>Edit Product Information</h6>
-                        {{ product_form.as_p }}
-
-                        <h6>Add Additional Images</h6>
-                        {{ images_form.image }}
+                        <h6>Add Product</h6>
+                        {{ form.as_p }}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
