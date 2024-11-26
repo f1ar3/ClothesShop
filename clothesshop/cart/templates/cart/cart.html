@@ -1,14 +1,9 @@
-{% extends 'layout.html' %}
 {% load static %}
-{% load carts_tags %}
 
-{% block css %}
-<link rel="stylesheet" href="{% static 'css/cart.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
 
-{% block title %}{{title}}{% endblock %}
 
-{% block content %}
-<div class="cart-container">
+<div class="cart-container" id="cart-items-container">
     <div class="cart-card">
         <div class="cart-row row">
             <div class="cart-col-md-8 cart-items col-md-8">
@@ -25,7 +20,6 @@
                     <div class="header-price col">Price</div>
                     <div class="header-remove col"></div>
                 </div>
-                {% user_carts request as carts %}
                 {% for cart in carts %}
                 <div class="cart-row row border-top border-bottom">
                     <div class="cart-row row main align-items-center">
@@ -34,17 +28,27 @@
                             <div class="cart-row row text-muted" style="padding-left: 25px">{{ cart.product.brand }}</div>
                             <div class="cart-row row" style="padding-left: 25px">{{ cart.product.name }}</div>
                         </div>
-                        <div class="cart-col col" >
-                            <input type="number" value="{{ cart.quantity }}" min="1" max="999">
+                        <div class="quantity-change cart-col col">
+                            <a href="{% url 'cart:cart_change' %}" class="decrement btn" data-cart-id="{{ cart.id }}" data-cart-change-url="{% url 'cart:cart_change' %}">
+                            {% csrf_token %}-
+                            </a>
+                            <input type="text" class="number" value="{{ cart.quantity }}">
+                            <a href="{% url 'cart:cart_change' %}" class="increment btn" data-cart-id="{{ cart.id }}" data-cart-change-url="{% url 'cart:cart_change' %}">
+                            {% csrf_token %}+
+                            </a>
                         </div>
                         <div class="item-size col">
-                            <select class="size-selector">
-                                <option value="text-muted">S</option>
+                            <select class="size-selector" data-cart-id="{{ cart.id }}">
+                                <option value="{{ cart.size }}" selected>{{ cart.size }}</option>
+                                {% for size in available_sizes %}
+                                <option value="{{ size.size }}">{{ size.size }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="cart-col col" style="padding-left: 50px">{% if cart.quantity == 1 %}{{ cart.product.sell_price }}
                             {% else %}{{ cart.products_price }}{% endif %}RUB</div>
-                        <div class="remove-item col"><a href="{% url 'cart:cart_remove' cart.id %}"><i class="fa-regular fa-circle-xmark"></i></a></div>
+                        <div class="remove-item col"><a href="{% url 'cart:cart_remove' %}" class="remove-from-cart"
+                        data-cart-id="{{ cart.id }}">{% csrf_token %}<i class="fa-regular fa-circle-xmark"></i></a></div>
                     </div>
                 </div>
                 {% endfor %}
@@ -80,4 +84,3 @@
     </div>
 </div>
 
-{% endblock %}

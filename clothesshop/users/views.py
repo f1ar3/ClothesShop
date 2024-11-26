@@ -7,6 +7,11 @@ from django.urls import reverse
 
 from .forms import UserLoginForm, UserRegistrationForm, ProfileForm
 
+def cart(request):
+    context = {
+        'title': 'G-Shop | Cart',
+    }
+    return render(request, 'users/users_cart.html', context)
 
 def login(request):
     if request.method == 'POST':

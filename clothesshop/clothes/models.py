@@ -67,21 +67,9 @@ class ProductImages(models.Model):
         return f"Image for {self.product.brand} {self.product.name}"
 
 
-class Sizes(models.Model):
-    size = models.CharField(max_length=150, unique=True, verbose_name='Size')
-
-    class Meta:
-        db_table = 'size'
-        verbose_name = 'Size'
-        verbose_name_plural = 'Sizes'
-
-    def __str__(self):
-        return self.size
-
-
 class ProductSizes(models.Model):
     product = models.ForeignKey(to=Products, on_delete=models.CASCADE, verbose_name='Product', related_name='sizes')
-    size = models.ForeignKey(to=Sizes, on_delete=models.CASCADE, verbose_name='Size', related_name='products')
+    size = models.CharField(verbose_name='Size', max_length=10)
     quantity = models.PositiveIntegerField(default=0, verbose_name='Quantity')
 
     class Meta:

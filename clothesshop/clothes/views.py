@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 
 from .forms import ProductsForm, ProductEditForm
-from .models import Products, Sizes, ProductImages
+from .models import Products, ProductImages, ProductSizes
 from .utils import q_search
 
 
@@ -46,7 +46,7 @@ def catalog(request, category_slug=None):
 
 def product(request, product_slug):
     product = Products.objects.get(slug=product_slug)
-    sizes = Sizes.objects.all()
+    sizes = ProductSizes.objects.filter(product=product)
     form = ProductEditForm(instance=product)
 
     context = {

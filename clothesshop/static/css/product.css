@@ -101,7 +101,11 @@
     outline: none;
 }
 
-.product-info .product-details .cart-btn {
+.user-buttons {
+    margin-top: 40px;
+}
+
+.product-info .product-details .add-to-cart {
     text-align: center;
     background: black;
     border-radius: 5px;
