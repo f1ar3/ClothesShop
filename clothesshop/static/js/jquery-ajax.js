@@ -38,7 +38,7 @@ $(document).ready(function () {
         });
     });
 
-     $(document).on("click", ".size-button", function () {
+    $(document).on("click", ".size-button", function () {
         $(".size-button").removeClass("selected");
         $(this).addClass("selected");
     });
@@ -85,7 +85,7 @@ $(document).ready(function () {
         var currentValue = parseInt($input.val());
         if (currentValue > 1) {
             $input.val(currentValue - 1);
-            updateCart(cartID, currentValue - 1, -1, change_cart_url);
+            updateQuantity(cartID, currentValue - 1, -1, change_cart_url);
         }
     });
 
@@ -98,10 +98,10 @@ $(document).ready(function () {
 
         $input.val(currentValue + 1);
 
-        updateCart(cartID, currentValue + 1, 1, change_cart_url);
+        updateQuantity(cartID, currentValue + 1, 1, change_cart_url);
     });
 
-    function updateCart(cartID, quantity, change, url) {
+    function updateQuantity(cartID, quantity, change, url) {
         $.ajax({
             type: "POST",
             url: url,
@@ -128,46 +128,70 @@ $(document).ready(function () {
         });
     }
 
+    $(document).on("change", ".size-selector", function (e) {
+        e.preventDefault();
+
+        var cart_id = $(this).data("cart-id");
+        var size_id = $(this).val();
+        var change_size_url = $(this).data("size-change-url");
+
+        $.ajax({
+            type: "POST",
+            url: change_size_url,
+            data: {
+                cart_id: cart_id,
+                size: size_id,
+                csrfmiddlewaretoken: $("[name=csrfmiddlewaretoken]").val(),
+            },
+            success: function (data) {
+                // Обновляем корзину на основе ответа
+                $("#cart-items-container").html(data.cart_items_html);
+            },
+            error: function (data) {
+                console.log("Ошибка при изменении размера в корзине");
+            }
+        });
 
 
-    var notification = $('#notification');
-    if (notification.length > 0) {
-        setTimeout(function () {
-            notification.alert('close');
-        }, 5000);
-    }
+        var notification = $('#notification');
+        if (notification.length > 0) {
+            setTimeout(function () {
+                notification.alert('close');
+            }, 5000);
+        }
 
-    // // Обработчик события радиокнопки выбора способа доставки
-    // $("input[name='requires_delivery']").change(function () {
-    //     var selectedValue = $(this).val();
-    //     // Скрываем или отображаем input ввода адреса доставки
-    //     if (selectedValue === "1") {
-    //         $("#deliveryAddressField").show();
-    //     } else {
-    //         $("#deliveryAddressField").hide();
-    //     }
-    // });
+        // // Обработчик события радиокнопки выбора способа доставки
+        // $("input[name='requires_delivery']").change(function () {
+        //     var selectedValue = $(this).val();
+        //     // Скрываем или отображаем input ввода адреса доставки
+        //     if (selectedValue === "1") {
+        //         $("#deliveryAddressField").show();
+        //     } else {
+        //         $("#deliveryAddressField").hide();
+        //     }
+        // });
 
-    // // Форматирования ввода номера телефона в форме (xxx) xxx-хххx
-    // document.getElementById('id_phone_number').addEventListener('input', function (e) {
-    //     var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-    //     e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-    // });
+        // // Форматирования ввода номера телефона в форме (xxx) xxx-хххx
+        // document.getElementById('id_phone_number').addEventListener('input', function (e) {
+        //     var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        //     e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        // });
 
-    // // Проверяем на стороне клинта коррекность номера телефона в форме xxx-xxx-хх-хx
-    // $('#create_order_form').on('submit', function (event) {
-    //     var phoneNumber = $('#id_phone_number').val();
-    //     var regex = /^\(\d{3}\) \d{3}-\d{4}$/;
-    //
-    //     if (!regex.test(phoneNumber)) {
-    //         $('#phone_number_error').show();
-    //         event.preventDefault();
-    //     } else {
-    //         $('#phone_number_error').hide();
-    //
-    //         // Очистка номера телефона от скобок и тире перед отправкой формы
-    //         var cleanedPhoneNumber = phoneNumber.replace(/[()\-\s]/g, '');
-    //         $('#id_phone_number').val(cleanedPhoneNumber);
-    //     }
-    // });
+        // // Проверяем на стороне клинта коррекность номера телефона в форме xxx-xxx-хх-хx
+        // $('#create_order_form').on('submit', function (event) {
+        //     var phoneNumber = $('#id_phone_number').val();
+        //     var regex = /^\(\d{3}\) \d{3}-\d{4}$/;
+        //
+        //     if (!regex.test(phoneNumber)) {
+        //         $('#phone_number_error').show();
+        //         event.preventDefault();
+        //     } else {
+        //         $('#phone_number_error').hide();
+        //
+        //         // Очистка номера телефона от скобок и тире перед отправкой формы
+        //         var cleanedPhoneNumber = phoneNumber.replace(/[()\-\s]/g, '');
+        //         $('#id_phone_number').val(cleanedPhoneNumber);
+        //     }
+        // });
+    });
 });

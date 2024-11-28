@@ -29,19 +29,20 @@
                             <div class="cart-row row" style="padding-left: 25px">{{ cart.product.name }}</div>
                         </div>
                         <div class="quantity-change cart-col col">
-                            <a href="{% url 'cart:cart_change' %}" class="decrement btn" data-cart-id="{{ cart.id }}" data-cart-change-url="{% url 'cart:cart_change' %}">
+                            <a href="{% url 'cart:cart_change_quantity' %}" class="decrement btn" data-cart-id="{{ cart.id }}" data-cart-change-url="{% url 'cart:cart_change_quantity' %}">
                             {% csrf_token %}-
                             </a>
                             <input type="text" class="number" value="{{ cart.quantity }}">
-                            <a href="{% url 'cart:cart_change' %}" class="increment btn" data-cart-id="{{ cart.id }}" data-cart-change-url="{% url 'cart:cart_change' %}">
+                            <a href="{% url 'cart:cart_change_quantity' %}" class="increment btn" data-cart-id="{{ cart.id }}" data-cart-change-url="{% url 'cart:cart_change_quantity' %}">
                             {% csrf_token %}+
                             </a>
                         </div>
                         <div class="item-size col">
-                            <select class="size-selector" data-cart-id="{{ cart.id }}">
-                                <option value="{{ cart.size }}" selected>{{ cart.size }}</option>
-                                {% for size in available_sizes %}
-                                <option value="{{ size.size }}">{{ size.size }}</option>
+                            <select class="size-selector" data-cart-id="{{ cart.id }}" data-size-change-url="{% url 'cart:cart_change_size' %}">
+                                {% for size in cart.available_sizes.all %}
+                                <option data-size-id="{{ size.id }}" value="{{ size.id }}" {% if size.id == cart.size.id %}selected{% endif %}>
+                                {{ size.size }}
+                                </option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -76,9 +77,9 @@
                 </form>
                 <div class="cart-row row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="cart-col col">TOTAL PRICE</div>
-                    <div class="cart-col text-right col">13700 RUB</div>
+                    <div class="cart-col text-right col">{{ carts.total_price }} RUB</div>
                 </div>
-                <button class="cart-btn">CHECKOUT</button>
+                <a href="{% url 'orders:order' %}" class="cart-btn btn">CHECKOUT</a>
             </div>
         </div>
     </div>

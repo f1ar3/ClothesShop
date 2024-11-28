@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Products, Categories, ProductImages, ProductSizes
+from .models import Products, Categories, ProductImages, ProductSizes, Sizes
 
 
 @admin.register(Categories)
@@ -22,3 +22,4 @@ class ProductSizesAdmin(admin.ModelAdmin):
     list_display = ('product', 'size', 'quantity')
 
 admin.site.register(ProductImages)
+admin.site.register(Sizes)
