@@ -1,4 +1,4 @@
-from django.contrib.messages.context_processors import messages
+from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.shortcuts import render, redirect
@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect
 from cart.models import Cart
 from .forms import OrderForm
 from .models import Order, OrderItem
+from clothes.models import ProductSizes
 
 
 def order(request):
@@ -23,7 +24,8 @@ def order(request):
                             phone_number=form.cleaned_data['phone_number'],
                             email=form.cleaned_data['email'],
                             delivery_address=form.cleaned_data['delivery_address'],
-                            payment_on_get=form.cleaned_data['payment_on_get'],
+                            payment_by_card=form.cleaned_data['payment_by_card'],
+                            order_price=cart_items.total_price(),
                         )
 
                         for item in cart_items:
@@ -33,28 +35,30 @@ def order(request):
                             size = item.size
                             quantity = item.quantity
 
-                        if product.quantity > 0:
-                            raise ValidationError("This product is not available")
+                            product_sizes = ProductSizes.objects.filter(product=product, size=size).first()
+                            if product_sizes.quantity < quantity:
+                                raise ValidationError(
+                                    f"There are only {product_sizes.quantity} of size {size} for product {product.brand} {product.name}")
 
-                        OrderItem.objects.create(
-                            order=order,
-                            product=product,
-                            name=name,
-                            price=price,
-                            quantity=quantity,
-                            size=size,
-                        )
+                            OrderItem.objects.create(
+                                order=order,
+                                product=product,
+                                name=name,
+                                price=price,
+                                quantity=quantity,
+                                size=size,
+                            )
 
-                        product.quantity -= quantity
-                        product.save()
+                            product_sizes.quantity -= quantity
+                            product_sizes.save()
 
-                    cart_items.delete()
+                        cart_items.delete()
 
-                    messages.success(request, "Order successfully created")
-                    return redirect('user:profile')
+                        messages.success(request, "Order successfully created")
+                        return redirect('user:user_orders')
             except ValidationError as e:
                 messages.success(request, str(e))
-                return redirect('cart:order')
+                return redirect('orders:order')
     else:
 
         initial = {
@@ -64,9 +68,10 @@ def order(request):
 
         form = OrderForm(initial=initial)
 
-        context = {
-            'title': 'G-Shop | Order',
-            'form': form,
-        }
+    context = {
+        'title': 'G-Shop | Order',
+        'form': form,
+    }
 
     return render(request, 'orders/order.html', context=context)
+

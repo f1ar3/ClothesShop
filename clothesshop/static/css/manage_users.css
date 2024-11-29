@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+.users-management {
+    padding-bottom: 200px;
+}
+
+.user-list-title {
+    margin-bottom: 25px;
+}
+
+.user-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px;
+    width: 350px;
+    margin-bottom: 20px;
+}
+
+.card p {
+    font-size: 15px;
+    color: black;
+    flex-grow: 1;
+}
+
+.card .btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.card .btn:hover {
+    background-color: #0056b3;
+}
+
+.modal-dialog {
+    max-width: 800px;
+}
+
+.modal-header {
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-header .btn-close {
+    background-color: #ddd;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.edit-user-input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+.edit-user-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Стиль для кнопки "Активный" */
+.form-check-label {
+    font-size: 14px;
+    color: #333;
+}
+
+.form-check-input {
+    margin-right: 10px;
+    transform: scale(1.2);
+}

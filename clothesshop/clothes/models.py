@@ -87,6 +87,7 @@ class ProductSizes(models.Model):
         db_table = 'product_size'
         verbose_name = 'Product Size'
         verbose_name_plural = 'Product Sizes'
+        ordering = ['id']
 
     def __str__(self):
         return f"{self.product.name} {self.size} {self.quantity}"

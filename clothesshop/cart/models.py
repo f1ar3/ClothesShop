@@ -14,6 +14,9 @@ class CartQuerySet(models.QuerySet):
             return sum(cart.quantity for cart in self)
         return 0
 
+    def total_price_with_delivery(self):
+        return sum(cart.products_price() for cart in self)
+
 class Cart(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, verbose_name='User')
     product = models.ForeignKey(to=Products, on_delete=models.CASCADE, verbose_name='Product')
@@ -26,6 +29,7 @@ class Cart(models.Model):
         db_table = 'cart'
         verbose_name = 'Cart'
         verbose_name_plural = 'Carts'
+        ordering = ['-id']
 
     objects = CartQuerySet.as_manager()
 

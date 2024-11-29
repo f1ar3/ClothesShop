@@ -83,6 +83,32 @@ def cart_change_size(request):
     return JsonResponse(response_data)
 
 
+def cart_change_delivery(request):
+    user_cart = get_user_carts(request)
+
+    products_price = user_cart.total_price()
+    delivery_type = request.POST.get('delivery_type')
+
+    if delivery_type == 'express':
+        delivery_price = 500
+    else:
+        delivery_price = 0
+
+    total_price = products_price + delivery_price
+    user_cart.total_price_with_delivery = total_price
+
+    cart_html = render_to_string('cart/cart.html', {'carts': user_cart, 'delivery_type': delivery_type, 'delivery_price': delivery_price,}, request=request)
+
+    response_data = {
+        'delivery_type': delivery_type,
+        'cart_html': cart_html,
+        'delivery_price': delivery_price,
+        'total_price': user_cart.total_price_with_delivery,
+    }
+
+    return JsonResponse(response_data)
+
+
 def cart_remove(request):
     cart_id = request.POST.get('cart_id')
 

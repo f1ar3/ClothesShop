@@ -29,11 +29,11 @@
                             <div class="cart-row row" style="padding-left: 25px">{{ cart.product.name }}</div>
                         </div>
                         <div class="quantity-change cart-col col">
-                            <a href="{% url 'cart:cart_change_quantity' %}" class="decrement btn" data-cart-id="{{ cart.id }}" data-cart-change-url="{% url 'cart:cart_change_quantity' %}">
+                            <a href="{% url 'cart:cart_change_quantity' %}" class="decrement btn" data-cart-id="{{ cart.id }}" data-quantity-change-url="{% url 'cart:cart_change_quantity' %}">
                             {% csrf_token %}-
                             </a>
                             <input type="text" class="number" value="{{ cart.quantity }}">
-                            <a href="{% url 'cart:cart_change_quantity' %}" class="increment btn" data-cart-id="{{ cart.id }}" data-cart-change-url="{% url 'cart:cart_change_quantity' %}">
+                            <a href="{% url 'cart:cart_change_quantity' %}" class="increment btn" data-cart-id="{{ cart.id }}" data-quantity-change-url="{% url 'cart:cart_change_quantity' %}">
                             {% csrf_token %}+
                             </a>
                         </div>
@@ -64,20 +64,21 @@
                 </div>
                 <div class="cart-row row">
                     <div class="cart-col col" style="padding-left:0;">Delivery</div>
-                    <div class="cart-col text-right col">500 RUB</div>
+                    <div class="cart-col text-right col" id="delivery-price"> RUB</div>
                 </div>
                 <form class="cart-form">
                     <p>DELIVERY</p>
-                    <select class="delivery-selector">
-                        <option class="text-muted">Standard Delivery - FREE</option>
-                        <option class="text-muted">Express-Delivery - &euro;5.00</option>
+                    <select class="delivery-selector" id="delivery-type" data-change-delivery-url="{% url 'cart:cart_change_delivery' %}">
+                        <option value="standard" class="text-muted">Standard Delivery - FREE</option>
+                        <option value="express" class="text-muted" {% if carts.total_price_with_delivery > carts.total_price %}selected{% endif %}>
+                            Express-Delivery - 500 RUB</option>
                     </select>
                     <p>GIVE CODE</p>
                     <input class="promo-input" id="cart-code" placeholder="Enter your code">
                 </form>
                 <div class="cart-row row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                     <div class="cart-col col">TOTAL PRICE</div>
-                    <div class="cart-col text-right col">{{ carts.total_price }} RUB</div>
+                    <div class="cart-col text-right col" id="total-price">{{ carts.total_price_with_delivery }} RUB</div>
                 </div>
                 <a href="{% url 'orders:order' %}" class="cart-btn btn">CHECKOUT</a>
             </div>

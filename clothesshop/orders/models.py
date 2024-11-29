@@ -1,5 +1,5 @@
 from django.db import models
-from clothes.models import Products
+from clothes.models import Products, Sizes
 
 from users.models import User
 
@@ -22,9 +22,10 @@ class Order(models.Model):
     email = models.EmailField(verbose_name="Email")
     express_delivery = models.BooleanField(default=False, verbose_name="Express delivery")
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Delivery address")
-    payment_on_get = models.BooleanField(default=False, verbose_name="Payment on get")
+    order_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Total price", default=0)
+    payment_by_card = models.BooleanField(default=False, verbose_name="Payment by card")
     is_paid = models.BooleanField(default=False, verbose_name="Paid")
-    status = models.CharField(max_length=50, default='В обработке', verbose_name="Order status")
+    status = models.CharField(max_length=50, default='In processing', verbose_name="Order status")
 
     class Meta:
         db_table = "order"
@@ -41,6 +42,7 @@ class OrderItem(models.Model):
     product = models.ForeignKey(to=Products, on_delete=models.SET_DEFAULT, null=True, verbose_name="Product", default=None)
     name = models.CharField(max_length=150, verbose_name="Name")
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="Price")
+    size = models.ForeignKey(to=Sizes, on_delete=models.SET_DEFAULT, null=True, verbose_name="Size", default=None)
     quantity = models.PositiveIntegerField(default=0, verbose_name="Quantity")
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Date of sale")
 

@@ -98,7 +98,7 @@ def edit_product(request, product_slug):
         'product': product,
     }
 
-    return render('catalog:product', context)
+    return redirect('catalog:product', context)
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)

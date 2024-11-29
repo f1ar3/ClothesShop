@@ -20,6 +20,7 @@ class ProductsAdmin(admin.ModelAdmin):
 @admin.register(ProductSizes)
 class ProductSizesAdmin(admin.ModelAdmin):
     list_display = ('product', 'size', 'quantity')
+    list_filter = ('product',)
 
 admin.site.register(ProductImages)
 admin.site.register(Sizes)
