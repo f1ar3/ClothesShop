@@ -134,40 +134,22 @@
         });
     });
 
-    // const sizeButtons = document.querySelectorAll('.size-button');
-    // let selectedSize = null;
-    //
-    // sizeButtons.forEach(button => {
-    //     button.addEventListener('click', () => {
-    //         sizeButtons.forEach(btn => btn.classList.remove('selected'));
-    //
-    //         button.classList.add('selected');
-    //
-    //         selectedSize = button.getAttribute('data-size');
-    //     });
-    // });
-
 
     const mainImage = document.querySelector('.main-image');
     const smallImages = document.querySelectorAll('.small-img');
 
     smallImages.forEach(function (smallImg, index) {
         smallImg.addEventListener('click', function () {
-            // Сохраняем текущий src главной картинки
             const tempMainSrc = mainImage.src;
 
-            // Устанавливаем новую главную картинку
             mainImage.src = smallImg.src;
 
-            // Сдвигаем остальные картинки
             for (let i = index; i > 0; i--) {
                 smallImages[i].src = smallImages[i - 1].src;
             }
 
-            // Устанавливаем предыдущую главную картинку на первое место среди дополнительных
             smallImages[0].src = tempMainSrc;
 
-            // Обновляем класс 'active'
             smallImages.forEach(img => img.classList.remove('active'));
             smallImg.classList.add('active');
         });

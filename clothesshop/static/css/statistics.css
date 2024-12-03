@@ -1,0 +1,161 @@
+.statistics .card {
+    margin-bottom: 1.5rem;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.statistics .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.statistics .card-body {
+    padding: 20px;
+    text-align: center;
+}
+
+.statistics .card-title {
+    font-size: 1.2rem;
+    color: #555;
+    font-weight: bold;
+}
+
+.statistics .card-text {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #444;
+}
+
+.statistics .card-icon {
+    font-size: 3rem;
+    padding: 15px;
+    background-color: #f1f1f1;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.statistics .card-icon i {
+    color: #555;
+}
+
+.statistics .list-group-item {
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Minimalist Tables for Top 10 Popular Products and Top 10 Users by Total Spend */
+/* General styles for the statistics section */
+.statistics {
+    padding: 30px;
+    background-color: #f8f9fa;
+}
+
+.statistics h4 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+
+.statistics-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.table-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #333;
+    text-align: center;
+    width: 100%;
+}
+
+
+.table-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+}
+
+
+.table-responsive {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+
+.statistics table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.statistics th,
+.statistics td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.statistics th {
+    background-color: #f7f7f7;
+    color: #333;
+    font-weight: bold;
+}
+
+.statistics tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.statistics tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.statistics td {
+    font-size: 1rem;
+    color: #555;
+}
+
+.statistics .table-striped tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.statistics .table-hover tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+.statistics th,
+.statistics td {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+
+.statistics td {
+    color: #333;
+    font-weight: 400;
+}
+
+.statistics .table td {
+    padding: 8px;
+}
+
+.table-responsive {
+    max-width: 1200px;
+    width: 100%;
+}
+
+
+

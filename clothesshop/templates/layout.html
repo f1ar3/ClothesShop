@@ -54,10 +54,10 @@
                     <li><a class="dropdown-item" href="{% url 'user:login' %}">Login</a></li>
                     {% elif user.is_superuser or user.is_staff %}
                     <li><a class="dropdown-item" href="{% url 'admin:index' %}">Admin panel</a></li>
+                    <li><a class="dropdown-item" href="{% url 'user:manage_users' %}">Users Management</a></li>
                     <li><a class="dropdown-item" href="{% url 'user:profile' %}">Profile</a></li>
-                    <li><a class="dropdown-item" href="{% url 'user:manage_users' %}">User Management</a></li>
                     <li><a class="dropdown-item" href="{% url 'user:user_orders' %}">My orders</a></li>
-                    <li><a class="dropdown-item" href="{% url 'user:profile' %}">Settings</a></li>
+                    <li><a class="dropdown-item" href="{% url 'user:statistics' %}">Statistics</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>

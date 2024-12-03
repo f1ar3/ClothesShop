@@ -10,6 +10,7 @@ class User(AbstractUser):
         db_table = 'user'
         verbose_name = 'User'
         verbose_name_plural = 'Users'
+        ordering = ['-is_active']
 
     def __str__(self):
         return self.username

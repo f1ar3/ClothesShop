@@ -1,12 +1,9 @@
-{% load static %}
-
 {% if form.non_field_errors %}
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ form.non_field_errors }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </div>
     </div>
@@ -17,28 +14,65 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             {% if messages %}
-            {% for message in messages %}
-            {% if message.tags == 'success' %}
-            <div id="notification"
-                 class="position-fixed start-50 translate-middle-x z-3 alert alert-success fade show custom-shadow"
-                 role="alert">
-                {{ message }}
-            </div>
-            {% endif %}
-            {% if message.tags == 'warning' %}
-            <div id="notification"
-                 class="position-fixed start-50 translate-middle-x z-3 alert alert-danger fade show custom-shadow"
-                 role="alert">
-                {{ message }}
-            </div>
-            {% endif %}
-            {% endfor %}
+                {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                    <div id="notification" class="alert alert-success fade show" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+                    {% if message.tags == 'warning' %}
+                    <div id="notification" class="alert alert-warning fade show" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+                    {% if message.tags == 'error' %}
+                    <div id="notification" class="alert alert-danger fade show" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endif %}
+                {% endfor %}
             {% else %}
-            <div id="jq-notification"
-                 class="position-fixed start-50 translate-middle-x z-3 alert alert-success fade show custom-shadow"
-                 style="display: none;" role="alert">
-            </div>
+                <div id="jq-notification"
+                     class="alert alert-success fade show"
+                     style="display: none;" role="alert">
+                </div>
             {% endif %}
         </div>
     </div>
 </div>
+
+<style>
+    .alert {
+        border-radius: 8px;
+        font-size: 1rem;
+        padding: 20px 25px;
+        margin-bottom: 0;
+        width: auto;
+        max-width: 550px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+    }
+
+
+    .alert-success {
+        background-color: #e7f7e7;
+        border-left: 5px solid #28a745;
+        color: #2f6d2e;
+    }
+
+    .alert-warning {
+        background-color: #fff7e5;
+        border-left: 5px solid #ffc107;
+        color: #856404;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        border-left: 5px solid #dc3545;
+        color: #721c24;
+    }
+
+</style>
