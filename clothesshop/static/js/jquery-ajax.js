@@ -180,6 +180,8 @@ $(document).ready(function () {
         }, 5000);
     }
 
+
+
     // // Обработчик события радиокнопки выбора способа доставки
     // $("input[name='requires_delivery']").change(function () {
     //     var selectedValue = $(this).val();

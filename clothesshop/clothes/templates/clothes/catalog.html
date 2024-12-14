@@ -3,7 +3,10 @@
 {% load clothes_tags%}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/catalog.css' %}">{% endblock %}
+<link rel="stylesheet" href="{% static 'css/catalog.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nouislider@15.6.0/dist/nouislider.min.css">
+
+{% endblock %}
 
 {% block title %}{{title}}{% endblock %}
 
@@ -16,9 +19,8 @@
 
 <section class="product-filtering">
     <div class="dropdown mb-2">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">Category
-        </button>
+        <button class="btn dropdown-toggle category-button" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">Category</button>
         <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
             {% tag_categories as categories %}
             {% for category in categories %}
@@ -28,46 +30,53 @@
         </ul>
     </div>
 
-    <div class="dropdown mb-2">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">Filters
-        </button>
+    <button id="filterButton" class="btn dropdown-toggle filter-button">Filters</button>
 
-        <form action="{% if request.GET.q %}{% url 'catalog:search' %}{% else %}{% url 'catalog:catalog_by_category' slug_url  %}{% endif %}"
-              method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
-            <div class="form-check text-white mx-3">
+    <div id="filterMenu" class="dropdown-menu bg-black">
+        <form action="{% if request.GET.q %}{% url 'catalog:search' %}{% else %}{% url 'catalog:catalog_by_category' slug_url %}{% endif %}"
+              method="get" class="form">
+            <div class="mx-3 mt-3">
+                <label for="price-range" class="text-white filter-price">Price</label>
+                <div id="price-range" class="price-slider"></div>
+                <div class="d-flex justify-content-between text-white">
+                    <span id="price-min">{{ min_price }}</span><span id="price-max">{{ max_price }}</span>
+                </div>
+                <input type="hidden" name="min_price" id="min-price" value="{{ selected_min_price }}">
+                <input type="hidden" name="max_price" id="max-price" value="{{ selected_max_price }}">
+            </div>
+            <div class="form-check">
                 <input class="form-check-input" type="checkbox" name="on_sale" id="flexCheckDefault" value="on"
                        {% if request.GET.on_sale == 'on' %}checked{% endif %}>
-                {% if request.GET.q %}
-                <input type="hidden" name="q" value="request.GET.q">
-                {% endif %}
                 <label class="form-check-label" for="flexCheckDefault">
                     Discounted clothes
                 </label>
             </div>
-            <p class="text-white mx-3 mt-3">Sort:</p>
-            <div class="form-check text-white mx-3">
+
+            <div class="form-check">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default"
                        {% if not request.GET.order_by or request.GET.order_by == 'default' %}checked{% endif %}>
                 <label class="form-check-label" for="flexRadioDefault1">
                     By default
                 </label>
             </div>
-            <div class="form-check text-white mx-3">
+
+            <div class="form-check">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price"
                        {% if request.GET.order_by == 'price' %}checked{% endif %}>
                 <label class="form-check-label" for="flexRadioDefault2">
                     From cheap to expensive
                 </label>
             </div>
-            <div class="form-check text-white mx-3">
+
+            <div class="form-check">
                 <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price"
                        {% if request.GET.order_by == '-price' %}checked{% endif %}>
                 <label class="form-check-label" for="flexRadioDefault3">
                     From expensive to cheap
                 </label>
             </div>
-            <button type="submit" class="btn btn-primary mx-3 mt-3">Apply</button>
+
+            <button type="submit" class="btn-apply">Apply</button>
         </form>
     </div>
 
@@ -155,5 +164,67 @@
         {% else %}?{% change_params page=products.number %}{% endif %}">Next</a><i class="fa-solid fa-arrow-right"></i>
     </button>
 </section>
+
+<script src="https://cdn.jsdelivr.net/npm/nouislider@15.6.0/dist/nouislider.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var selected_min_price = {{ selected_min_price }};
+        var selected_max_price = {{ selected_max_price }};
+        var minPrice = {{ min_price }}
+        var maxPrice = {{ max_price }}
+
+        var priceSlider = document.getElementById('price-range');
+        noUiSlider.create(priceSlider, {
+            start: [selected_min_price, selected_max_price],
+            connect: true,
+            range: {
+                'min': minPrice,
+                'max': maxPrice
+            },
+            step: 1,
+            tooltips: false,
+        });
+
+        priceSlider.noUiSlider.on('update', function (values, handle) {
+            document.getElementById('price-min').textContent = values[0];
+            document.getElementById('price-max').textContent = values[1];
+
+            document.getElementById('min-price').value = values[0];
+            document.getElementById('max-price').value = values[1];
+        });
+    });
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const filterButton = document.getElementById('filterButton');
+    const filterMenu = document.getElementById('filterMenu');
+    const applyButton = document.querySelector('.btn-apply');
+
+    function toggleMenu() {
+        if (filterMenu.style.display === 'block') {
+            filterMenu.style.display = 'none';
+        } else {
+            filterMenu.style.display = 'block';
+        }
+    }
+
+    filterButton.addEventListener('click', function (event) {
+        event.stopPropagation();
+        toggleMenu();
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!filterMenu.contains(event.target) && event.target !== filterButton) {
+            filterMenu.style.display = 'none';
+        }
+    });
+
+    applyButton.addEventListener('click', function () {
+        filterMenu.style.display = 'none';
+    });
+});
+</script>
 
 {% endblock %}

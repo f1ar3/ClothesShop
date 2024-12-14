@@ -5,7 +5,7 @@
 }
 
 .catalog-header {
-    background-image: url("../img/flowers.jpg");
+    background-image: url("../img/clothesbanner.png");
     width: 100%;
     height: 30vh;
     background-size: cover;
@@ -17,8 +17,8 @@
 }
 
 .catalog-header h2,
-.catalog-header p{
-    color: #fff;
+.catalog-header p {
+    color: black;
 }
 
 .btn-secondary {
@@ -26,7 +26,7 @@
 }
 
 .admin-controls {
-    margin-left: 925px;
+    margin-left: 1130px;
 }
 
 .modal-dialog {
@@ -46,6 +46,10 @@
 
 .product-filtering .dropdown {
     width: 250px;
+}
+
+.category-button, .filter-button {
+    font-size: 20px;
 }
 
 .catalog-products {
@@ -179,7 +183,7 @@
 }
 
 .pagination ul li {
-   display: inline-block;
+    display: inline-block;
     margin: 0 10px;
     width: 45px;
     height: 45px;
@@ -213,3 +217,78 @@
     text-decoration: none;
     color: black;
 }
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    margin-top: 50px;
+    margin-left: 170px;
+    padding: 15px;
+    border-radius: 5px;
+    width: 250px;
+    z-index: 999;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.form-check {
+    color: white;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.btn-apply {
+    background-color: #007bff;
+    color: white;
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.filter-button:hover, .btn-apply:hover {
+    opacity: 0.8;
+}
+
+.price-slider {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.noUi-handle {
+    background-color: #3498db;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 2;
+}
+
+.noUi-connect {
+    background-color: #3498db;
+}
+
+#price-min, #price-max {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.d-flex .text-white {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.noUi-handle:focus {
+    box-shadow: 0 0 4px rgba(52, 152, 219, 0.8);
+}
+
+.noUi-origin {
+    z-index: 1;
+}
+
+
+

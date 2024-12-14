@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
+from django.db.models import Min, Max
 from django.shortcuts import render, redirect
 
 from .forms import ProductsForm, ProductEditForm
@@ -13,6 +14,13 @@ def catalog(request, category_slug=None):
     on_sale = request.GET.get('on_sale', None)
     order_by = request.GET.get('order_by', None)
     query = request.GET.get('q', None)
+
+    price_range = Products.objects.aggregate(min_price=Min('price'), max_price=Max('price'))
+    min_price = price_range['min_price']
+    max_price = price_range['max_price']
+
+    selected_min_price = request.GET.get('min_price', min_price)
+    selected_max_price = request.GET.get('max_price', max_price)
 
     if category_slug == 'all-products':
         products = Products.objects.all()
@@ -27,6 +35,8 @@ def catalog(request, category_slug=None):
     if on_sale:
         products = products.filter(discount__gt=0)
 
+    products = products.filter(price__gte=selected_min_price, price__lte=selected_max_price)
+
     if order_by and order_by != 'default':
         products = products.order_by(order_by)
 
@@ -39,6 +49,10 @@ def catalog(request, category_slug=None):
         'products': current_page,
         'slug_url': category_slug,
         'form': form,
+        'min_price': min_price,
+        'max_price': max_price,
+        'selected_min_price': selected_min_price,
+        'selected_max_price': selected_max_price,
     }
 
     return render(request, 'clothes/catalog.html', context)
